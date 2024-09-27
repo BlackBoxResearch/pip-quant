@@ -1,7 +1,7 @@
 streamlit
 pandas
 streamlit_extras
-graph_objects
+plotly
 express
 numpy
 random
