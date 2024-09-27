@@ -297,7 +297,11 @@ def homepage_page():
                     ''')
 
     st.markdown('''
+                ---
+
                 Created with ❤️ by [Black Box Research Ltd.](https://blackboxresearch.co.uk)
+
+
                 ''')
 
 def dashboard_page():
