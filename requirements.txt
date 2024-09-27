@@ -1,9 +1,8 @@
 streamlit
 pandas
 streamlit_extras
-plotly.graph_objects
-plotly.express
+graph_objects
+express
 numpy
 random
 datetime
-timedelta

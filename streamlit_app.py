@@ -1,5 +1,10 @@
 import streamlit as st
+import random
+from datetime import datetime, timedelta
+import plotly.express as px
 import pandas as pd
+import numpy as np
+import plotly.graph_objects as go
 from streamlit_extras.stylable_container import stylable_container
 
 # Set page configuration to wide mode
