@@ -1,8 +1,8 @@
 streamlit
 pandas
 streamlit_extras
+plotly.express
 plotly
-express
 numpy
 random
 datetime
