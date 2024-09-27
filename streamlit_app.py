@@ -13,6 +13,18 @@ background_color = '#262730'
 chart_pve_fill_color = '#88a4b8'
 chart_nve_fill_color = '#c99797'
 
+# Generate sample data for August 2024
+august_2024_data = []
+
+start_date = datetime(2024, 8, 1)
+for i in range(30):  # 30 days of August
+    day = start_date + timedelta(days=i)
+    profit_value = random.randint(-2000, 5000)  # Random value between -2000 and +5000
+    august_2024_data.append({
+        "value": profit_value,
+        "day": day.strftime("%Y-%m-%d")  # Format to YYYY-MM-DD
+    })
+
 def homepage_page():
     # Access the user's name from session state
     name = st.session_state.get("name", "User")
@@ -20,7 +32,7 @@ def homepage_page():
     st.markdown("This is an overview of all connected accounts aggregated into one profile.")
 
     with st.container(border=False):
-    # Creating rows with specified columns
+        # Creating rows with specified columns
         row1 = st.columns(4)
         row2 = st.columns(1)
         row3 = st.columns(2)
@@ -101,79 +113,183 @@ def homepage_page():
                 tile5 = st.container()
                 tile5.subheader("Aggregated Profit")
 
-            with row3[1]:
-                with stylable_container(
-                        key="tile",
-                        css_styles=f'''
-                                        {{
-                                            background-color: {background_color};
-                                            border: 1px solid {border_colour};
-                                            border-radius: 0.5rem;
-                                            padding: 1em;
-                                        }}
-                                        '''
-                ):
-                    tile7 = st.container()
-                    tile7.subheader("Statistics")
-                    col1, col2, col3, col4 = tile7.columns(4)
-                    with col1:
-                        st.markdown('''
-                                        **Balance**:
-                                        \n**Equity**:
-                                        \n**Profit Factor**:
-                                        
-                        ''')
+            #chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
 
-                    with col2:
-                        st.markdown(f'''
-                                        $25,120.22
-                                        \n$27,125.52
-                                        \n1.21
-                        ''')
+            # Generating a simulated dataset for trading account returns
+            np.random.seed(42)  # For reproducibility
+            dates = pd.date_range(start='2023-01-01', periods=500)
+            returns = np.cumsum(np.random.randn(500) * 0.5)  # Cumulative returns with random fluctuations
 
-                    with col3:
-                        st.markdown('''
-                                        **Total Profit**:
-                                        \n**Total Gain**:
-                                        \n**Max Drawdown**:
+            # Putting the data into a DataFrame
+            data = pd.DataFrame({'Date': dates, 'Returns': returns})
 
-                        ''')
+            # Create the figure
+            fig = go.Figure()
 
-                    with col4:
-                        st.markdown(f'''
-                                        $12,201.00
-                                        \n22.01%
-                                        \n10.21%
-                        ''')
+            # Add a trace for positive values
+            fig.add_trace(go.Scatter(
+                x=data['Date'],
+                y=[val if val >= 0 else 0 for val in data['Returns']],  # Only positive values
+                fill='tozeroy',
+                mode='lines',
+                line_shape='spline',
+                line=dict(color='#9dd5fa'),  # Color for positive line
+                fillcolor=chart_pve_fill_color  # Fill color for positive area
+            ))
 
+            # Add a trace for negative values
+            fig.add_trace(go.Scatter(
+                x=data['Date'],
+                y=[val if val < 0 else 0 for val in data['Returns']],  # Only negative values
+                fill='tozeroy',
+                mode='lines',
+                line_shape='spline',
+                line=dict(color='#ff4d4d'),  # Color for negative line
+                fillcolor=chart_nve_fill_color  # Fill color for negative area
+            ))
+
+            # Update layout to set the background color
+            fig.update_layout(
+                plot_bgcolor=background_color,  # Background color of the plotting area
+                paper_bgcolor=background_color  # Background color of the entire figure
+            )
+
+            # Plot the chart in Streamlit
+            tile5.plotly_chart(fig)
 
 
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.markdown(f'''
-                            **Products**
-                            \nTrade Copier
-                            \nAI Quant
-                            \nEA Builder
-                            \nEconomic Calendar
+
+        # Adding individual content to each column in row 3
+        with row3[0]:
+            with stylable_container(
+                    key="tile",
+                    css_styles=f'''
+                                    {{
+                                        background-color: {background_color};
+                                        border: 1px solid {border_colour};
+                                        border-radius: 0.5rem;
+                                        padding: 1em;
+                                    }}
+                                    '''
+            ):
+                tile6 = st.container()
+                tile6.subheader("PipQuant Score Breakdown")
+
+            df = pd.DataFrame(dict(
+                r=[55, 25, 78, 91, 95],
+                theta=['Profitability', 'Risk Management', 'Consistency',
+                        'Risk:Reward Ratio', 'Experience']))
+
+            # Create a polar line chart
+            fig = px.line_polar(df, r='r', theta='theta', line_close=True, line_shape='spline')
+
+            # Update traces to set the line color and fill
+            fig.update_traces(line_color='#9dd5fa', fill='toself', text=df['r'], textposition='top center')
+
+            # Update layout to set the background color
+            fig.update_layout(
+                plot_bgcolor=background_color,  # Background color of the plotting area
+                paper_bgcolor=background_color,  # Background color of the entire figure
+                polar=dict(
+                    bgcolor=background_color  # Background color of the polar chart
+                )
+            )
+
+            # Plot the chart in Streamlit
+            tile6.plotly_chart(fig)
+
+            # To calculate a trader's score on a scale of 0 to 100, representing the best possible trader, consider the following five key factors:
+            #
+            # 1. Profitability (Profit Factor)
+            # Description: The ratio of total profits to total losses. A high profit factor (above 2.0) indicates a trader's ability to generate profits that significantly exceed losses.
+            # Why It's Important: This directly measures how well a trader manages to achieve gains relative to losses, which is critical for sustained success.
+            # 2. Risk Management (Maximum Drawdown)
+            # Description: The maximum observed loss from a peak to a trough of a portfolio before a new peak is achieved. A lower maximum drawdown indicates better risk management.
+            # Why It's Important: This factor shows how well a trader preserves capital during unfavorable periods. Traders with smaller drawdowns tend to have a more sustainable trading strategy.
+            # 3. Consistency (Win Rate and Trade Frequency)
+            # Description: The percentage of winning trades and the frequency of trading. High consistency is reflected in a win rate above 50% or a trading pattern that maintains profitability over time.
+            # Why It's Important: A consistent trader can maintain profitability in varying market conditions. High win rates paired with adequate trade frequency demonstrate skill and strategy discipline.
+            # 4. Risk-to-Reward Ratio
+            # Description: The ratio of the average profit of winning trades to the average loss of losing trades. A good risk-to-reward ratio (typically 2:1 or higher) indicates that the trader targets more potential profit relative to risk on each trade.
+            # Why It's Important: Successful traders aim for trades where potential rewards outweigh risks, helping to maintain profitability even with lower win rates.
+            # 5. Longevity (Trading Experience)
+            # Description: The duration of the trader's active trading career. Longer trading experience, especially if accompanied by sustained profitability, indicates a higher level of expertise.
+            # Why It's Important: Market conditions change over time, and a trader who has adapted and remained profitable over multiple market cycles showcases resilience and skill.
+            # Each of these factors can be assigned a weighted score to calculate a comprehensive trader score, with adjustments based on the trader's overall trading strategy and style.
+
+        with row3[1]:
+            with stylable_container(
+                    key="tile",
+                    css_styles=f'''
+                                    {{
+                                        background-color: {background_color};
+                                        border: 1px solid {border_colour};
+                                        border-radius: 0.5rem;
+                                        padding: 1em;
+                                    }}
+                                    '''
+            ):
+                tile7 = st.container()
+                tile7.subheader("Statistics")
+                col1, col2, col3, col4 = tile7.columns(4)
+                with col1:
+                    st.markdown('''
+                                    **Balance**:
+                                    \n**Equity**:
+                                    \n**Profit Factor**:
+                                    
+                    ''')
+
+                with col2:
+                    st.markdown(f'''
+                                    $25,120.22
+                                    \n$27,125.52
+                                    \n1.21
+                    ''')
+
+                with col3:
+                    st.markdown('''
+                                    **Total Profit**:
+                                    \n**Total Gain**:
+                                    \n**Max Drawdown**:
+
+                    ''')
+
+                with col4:
+                    st.markdown(f'''
+                                    $12,201.00
+                                    \n22.01%
+                                    \n10.21%
+                    ''')
 
 
-                        ''')
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.markdown(f'''
+                        **Products**
+                        \nTrade Copier
+                        \nAI Quant
+                        \nEA Builder
+                        \nEconomic Calendar
 
 
-        with col2:
-            st.markdown(f'''
-                            **For Businesses**
-                            \nAffiliates
-                            \nPartnerships
-                        ''')
+                    ''')
 
-        with col3:
-            st.markdown(f'''
-                            **Socials**
-                            \nInstagram
-                            \nX
-                        ''')
+
+    with col2:
+        st.markdown(f'''
+                        **For Businesses**
+                        \nAffiliates
+                        \nPartnerships
+                    ''')
+
+    with col3:
+        st.markdown(f'''
+                        **Socials**
+                        \nInstagram
+                        \nX
+                    ''')
 
 def dashboard_page():
     st.title("Dashboard")
