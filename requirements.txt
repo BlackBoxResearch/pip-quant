@@ -4,5 +4,4 @@ streamlit_extras
 plotly.express
 plotly
 numpy
-random
 datetime
