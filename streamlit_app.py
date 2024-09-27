@@ -36,6 +36,12 @@ def homepage_page():
     st.title(f"Welcome, {name}!")
     st.markdown("This is an overview of all connected accounts aggregated into one profile.")
 
+    st.markdown('''
+                
+                ---
+                
+                ''')
+    
     with st.container(border=False):
         # Creating rows with specified columns
         row1 = st.columns(4)
@@ -271,7 +277,7 @@ def homepage_page():
     st.markdown('''
                 
                 ---
-                
+
                 ''')
 
     col1, col2, col3 = st.columns(3)
