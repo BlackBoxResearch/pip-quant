@@ -296,7 +296,7 @@ def homepage_page():
                         \nX
                     ''')
 
-    footer = st.columns(1)
+    footer = st.columns(2)
     with footer:
         st.markdown('''
                     Created with ❤️ by [Black Box Research Ltd.](https://blackboxresearch.co.uk)
