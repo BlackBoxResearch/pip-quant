@@ -1,17 +1,106 @@
 import streamlit as st
 import pandas as pd
+from streamlit_extras.stylable_container import stylable_container
 
 # Set page configuration to wide mode
 st.set_page_config(layout="wide")
+
 st.get_option("theme.base")
 st.get_option("client.toolbarMode")
 
+border_colour = 'rgba(75, 75, 75, 1)'
+background_color = '#262730'
+chart_pve_fill_color = '#88a4b8'
+chart_nve_fill_color = '#c99797'
 
 def homepage_page():
     # Access the user's name from session state
     name = st.session_state.get("name", "User")
     st.title(f"Welcome, {name}!")
-    st.markdown("This is your homepage.")
+    st.markdown("This is an overview of all connected accounts aggregated into one profile.")
+
+    with st.container(border=False):
+    # Creating rows with specified columns
+        row1 = st.columns(4)
+        row2 = st.columns(1)
+        row3 = st.columns(2)
+
+        with row1[0]:
+            with stylable_container(
+                    key="tile",
+                    css_styles=f'''
+                    {{
+                        background-color: {background_color};
+                        border: 1px solid {border_colour};
+                        border-radius: 0.5rem;
+                        padding: 1em;
+                    }}
+                    '''
+            ):
+                tile1 = st.container()
+                tile1.metric(label="Total Profit", value="$12,201.00", delta="+$1,451.00")
+
+        with row1[1]:
+            with stylable_container(
+                    key="tile",
+                    css_styles=f'''
+                                    {{
+                                        background-color: {background_color};
+                                        border: 1px solid {border_colour};
+                                        border-radius: 0.5rem;
+                                        padding: 1em;
+                                    }}
+                                    '''
+            ):
+                tile2 = st.container()
+                tile2.metric(label="Total Gain", value="22.01%", delta="+14.51%")
+
+        with row1[2]:
+            with stylable_container(
+                    key="tile",
+                    css_styles=f'''
+                                    {{
+                                        background-color: {background_color};
+                                        border: 1px solid {border_colour};
+                                        border-radius: 0.5rem;
+                                        padding: 1em;
+                                    }}
+                                    '''
+            ):
+                tile3 = st.container()
+                tile3.metric(label="Profit Factor", value="1.21", delta="+0.05")
+
+        with row1[3]:
+            with stylable_container(
+                    key="tile",
+                    css_styles=f'''
+                                    {{
+                                        background-color: {background_color};
+                                        border: 1px solid {border_colour};
+                                        border-radius: 0.5rem;
+                                        padding: 1em;
+                                    }}
+                                    '''
+            ):
+                tile4 = st.container()
+                tile4.metric(label="PipQuant Score", value="69", delta="+2")
+
+        # Adding individual content to the single column in row 2
+        with row2[0]:
+            with stylable_container(
+                    key="tile",
+                    css_styles=f'''
+                                    {{
+                                        background-color: {background_color};
+                                        border: 1px solid {border_colour};
+                                        border-radius: 0.5rem;
+                                        padding: 1em;
+                                    }}
+                                    '''
+            ):
+                tile5 = st.container()
+                tile5.subheader("Aggregated Profit")
+
 
 
 def dashboard_page():
@@ -51,6 +140,7 @@ def logout_page():
             st.session_state["logged_in"] = False
             st.session_state["logged_out"] = True
             st.success("Logged out successfully!")
+            st.rerun()
 
 # Define pages with icons
 homepage = st.Page(page=homepage_page, title="Homepage", icon=":material/home:")
