@@ -101,7 +101,79 @@ def homepage_page():
                 tile5 = st.container()
                 tile5.subheader("Aggregated Profit")
 
+            with row3[1]:
+                with stylable_container(
+                        key="tile",
+                        css_styles=f'''
+                                        {{
+                                            background-color: {background_color};
+                                            border: 1px solid {border_colour};
+                                            border-radius: 0.5rem;
+                                            padding: 1em;
+                                        }}
+                                        '''
+                ):
+                    tile7 = st.container()
+                    tile7.subheader("Statistics")
+                    col1, col2, col3, col4 = tile7.columns(4)
+                    with col1:
+                        st.markdown('''
+                                        **Balance**:
+                                        \n**Equity**:
+                                        \n**Profit Factor**:
+                                        
+                        ''')
 
+                    with col2:
+                        st.markdown(f'''
+                                        $25,120.22
+                                        \n$27,125.52
+                                        \n1.21
+                        ''')
+
+                    with col3:
+                        st.markdown('''
+                                        **Total Profit**:
+                                        \n**Total Gain**:
+                                        \n**Max Drawdown**:
+
+                        ''')
+
+                    with col4:
+                        st.markdown(f'''
+                                        $12,201.00
+                                        \n22.01%
+                                        \n10.21%
+                        ''')
+
+
+
+        col1, col2, col3 = st.columns(3)
+        with col1:
+            st.markdown(f'''
+                            **Products**
+                            \nTrade Copier
+                            \nAI Quant
+                            \nEA Builder
+                            \nEconomic Calendar
+
+
+                        ''')
+
+
+        with col2:
+            st.markdown(f'''
+                            **For Businesses**
+                            \nAffiliates
+                            \nPartnerships
+                        ''')
+
+        with col3:
+            st.markdown(f'''
+                            **Socials**
+                            \nInstagram
+                            \nX
+                        ''')
 
 def dashboard_page():
     st.title("Dashboard")
