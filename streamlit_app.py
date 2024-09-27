@@ -296,11 +296,9 @@ def homepage_page():
                         \nX
                     ''')
 
-    footer = st.columns(2)
-    with footer:
-        st.markdown('''
-                    Created with ❤️ by [Black Box Research Ltd.](https://blackboxresearch.co.uk)
-                    ''')
+    st.markdown('''
+                Created with ❤️ by [Black Box Research Ltd.](https://blackboxresearch.co.uk)
+                ''')
 
 def dashboard_page():
     st.title("Dashboard")
