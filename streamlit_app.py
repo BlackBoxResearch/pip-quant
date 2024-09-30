@@ -209,25 +209,6 @@ def homepage_page():
             # Plot the chart in Streamlit
             tile6.plotly_chart(fig)
 
-            # To calculate a trader's score on a scale of 0 to 100, representing the best possible trader, consider the following five key factors:
-            #
-            # 1. Profitability (Profit Factor)
-            # Description: The ratio of total profits to total losses. A high profit factor (above 2.0) indicates a trader's ability to generate profits that significantly exceed losses.
-            # Why It's Important: This directly measures how well a trader manages to achieve gains relative to losses, which is critical for sustained success.
-            # 2. Risk Management (Maximum Drawdown)
-            # Description: The maximum observed loss from a peak to a trough of a portfolio before a new peak is achieved. A lower maximum drawdown indicates better risk management.
-            # Why It's Important: This factor shows how well a trader preserves capital during unfavorable periods. Traders with smaller drawdowns tend to have a more sustainable trading strategy.
-            # 3. Consistency (Win Rate and Trade Frequency)
-            # Description: The percentage of winning trades and the frequency of trading. High consistency is reflected in a win rate above 50% or a trading pattern that maintains profitability over time.
-            # Why It's Important: A consistent trader can maintain profitability in varying market conditions. High win rates paired with adequate trade frequency demonstrate skill and strategy discipline.
-            # 4. Risk-to-Reward Ratio
-            # Description: The ratio of the average profit of winning trades to the average loss of losing trades. A good risk-to-reward ratio (typically 2:1 or higher) indicates that the trader targets more potential profit relative to risk on each trade.
-            # Why It's Important: Successful traders aim for trades where potential rewards outweigh risks, helping to maintain profitability even with lower win rates.
-            # 5. Longevity (Trading Experience)
-            # Description: The duration of the trader's active trading career. Longer trading experience, especially if accompanied by sustained profitability, indicates a higher level of expertise.
-            # Why It's Important: Market conditions change over time, and a trader who has adapted and remained profitable over multiple market cycles showcases resilience and skill.
-            # Each of these factors can be assigned a weighted score to calculate a comprehensive trader score, with adjustments based on the trader's overall trading strategy and style.
-
         with row3[1]:
             with stylable_container(
                     key="tile",
@@ -268,9 +249,9 @@ def homepage_page():
 
                 with col4:
                     st.markdown(f'''
-                                    $12,201.00
-                                    \n22.01%
-                                    \n10.21%
+                                    :green[$12,201.00]
+                                    \n:green[22.01%]
+                                    \n:green[10.21%]
                     ''')
 
 
