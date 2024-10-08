@@ -4,4 +4,4 @@ toolbarMode="minimal"
 [theme]
 base = "dark"
 backgroundColor = "#14233C"
-secondaryBackgroundColor = "#14233C"
+secondaryBackgroundColor = "#202d42"
