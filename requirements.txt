@@ -5,4 +5,3 @@ plotly.express
 plotly
 numpy
 datetime
-random
