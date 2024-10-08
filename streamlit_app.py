@@ -44,10 +44,8 @@ def main():
     # Check if user is already logged in
     if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
         st.session_state["logged_in"] = False
-        # Pass 'home' as the default page for logged-out users
         create_navigation(logged_out_pages)
     else:
-        # Pass 'dashboard' as the default page for logged-in users
         create_navigation(logged_in_pages)
 
 # Run the app
