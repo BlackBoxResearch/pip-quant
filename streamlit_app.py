@@ -5,8 +5,6 @@ from pages import accounts, ai_quant, dashboard, ea_builder, eco_calendar, home,
 
 # Set page configuration to wide mode
 st.set_page_config(layout="wide")
-st.get_option("theme.base")
-st.get_option("client.toolbarMode")
 
 # Define pages with icons
 home = st.Page(page=home.home_page, title="Home", icon=":material/home:")
