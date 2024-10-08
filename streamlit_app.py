@@ -34,8 +34,8 @@ logged_in_pages = {
 }
 
 # Create the navigation menu with Home as the default page
-def create_navigation(pages, default_page):
-    selected_page = st.navigation(pages, position="sidebar", default=default_page)
+def create_navigation(pages):
+    selected_page = st.navigation(pages, position="sidebar")
     # Run the selected page
     selected_page.run()
 
@@ -45,10 +45,10 @@ def main():
     if "logged_in" not in st.session_state or not st.session_state["logged_in"]:
         st.session_state["logged_in"] = False
         # Pass 'home' as the default page for logged-out users
-        create_navigation(logged_out_pages, default_page=home)
+        create_navigation(logged_out_pages)
     else:
         # Pass 'dashboard' as the default page for logged-in users
-        create_navigation(logged_in_pages, default_page=dashboard)
+        create_navigation(logged_in_pages)
 
 # Run the app
 if __name__ == "__main__":
