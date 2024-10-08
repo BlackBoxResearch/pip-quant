@@ -115,7 +115,7 @@ pages = {
 
 # Create the navigation menu
 def create_navigation():
-    selected_page = st.navigation(pages, position="sidebar")
+    selected_page = st.navigation(pages, position="sidebar", expanded=False)
     # Run the selected page
     selected_page.run()
 
